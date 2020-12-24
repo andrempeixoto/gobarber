@@ -1,11 +1,12 @@
-import express from "express";
-import routes from "./routes";
+import express from 'express';
+import routes from './routes';
 
 const app = express();
 
-app.get("/", (request, response) => response.json({ message: "Hey!" }));
+app.use(express.json());
+app.use(routes);
 
 app.listen(3330, () => {
   // eslint-disable-next-line no-console
-  console.log("🚀 Server started on port 3330");
+  console.log('🚀 Server started on port 3330');
 });
