@@ -6,8 +6,11 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository(); // class being instantiated
 
-// 'http://localhost:3330/appointments' is the root address of this route
-// as pointed in the index.ts file as "routes.use('/appointments', appointmentsRouter);"
+appointmentsRouter.get('/', (request, response) => {
+  const appointments = appointmentsRepository.all();
+
+  return response.json(appointments);
+});
 
 appointmentsRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
