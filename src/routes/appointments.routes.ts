@@ -1,17 +1,10 @@
 import { Router } from 'express';
-import { v4 as uuid } from 'uuid';
 import { startOfHour, parseISO, isEqual } from 'date-fns';
+import Appointment from '../models/Appointment';
 
 const appointmentsRouter = Router();
 
-// Typescript. Using interface to define a type of an object (not a simple info)
-interface Appointments {
-  id: string;
-  provider: string;
-  date: Date;
-}
-
-const appointments: Appointments[] = [];
+const appointments: Appointment[] = [];
 
 // 'http://localhost:3330/appointments' is the root address of this route
 // as pointed in the index.ts file as "routes.use('/appointments', appointmentsRouter);"
@@ -28,11 +21,7 @@ appointmentsRouter.post('/', (request, response) => {
     return response.status(400).json({ message: 'This time is already taken' });
   }
 
-  const appointment = {
-    id: uuid(),
-    provider,
-    date: parsedDate,
-  };
+  const appointment = new Appointment(provider, parsedDate);
 
   appointments.push(appointment);
   return response.json(appointment);
