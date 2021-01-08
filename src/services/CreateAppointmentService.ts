@@ -14,9 +14,10 @@ class CreateAppointmentService {
   public async execute({ date, provider }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
-    const appointmentDate = startOfHour(date); // a business rule: an appointment can only happen once every hour
+    // a business rule: an appointment can only happen once every hour
+    const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = appointmentsRepository.findByDate(
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
       appointmentDate,
     );
 
