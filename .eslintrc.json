@@ -19,6 +19,7 @@
         "prettier"
     ],
     "rules": {
+      "@typescript/camelcase": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
